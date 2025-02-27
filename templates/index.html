@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Health Tracker</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            background: #111;
+            color: white;
+            overflow: hidden;
+            transition: background 0.5s ease-in-out;
+        }
+
+        .dark-mode {
+            background: #000;
+        }
+
+        .light-mode {
+            background: #f4f4f4;
+            color: #333;
+        }
+
+        .toggle-container {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 25px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 25px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #2196F3;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(25px);
+        }
+
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .container:hover {
+            transform: scale(1.02);
+        }
+
+        input,
+        button {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            font-size: 16px;
+        }
+
+        button {
+            background: #28a745;
+            color: white;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background: #218838;
+        }
+
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            z-index: 1000;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .popup.show {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .loading-effect {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 24px;
+            color: cyan;
+        }
+    </style>
+</head>
+<body>
+    <div class="toggle-container">
+        <label class="toggle-switch">
+            <input type="checkbox" id="mode-toggle">
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <div class="container">
+        <h1>Smart Health Tracker</h1>
+        <input type="number" id="age" placeholder="Enter Age (1-120)" min="1" max="120">
+        <input type="number" id="bmi" placeholder="Enter BMI (10-50)" min="10" max="50">
+        <input type="number" id="activity_level" placeholder="Activity Level (0-5)" min="0" max="5">
+        <input type="number" id="smoking" placeholder="Smoking (0-No, 1-Yes)" min="0" max="1">
+        <input type="number" id="alcohol" placeholder="Alcohol (0-No, 1-Yes)" min="0" max="1">
+        <input type="number" id="diet" placeholder="Diet Quality (1-5)" min="1" max="5">
+        <input type="number" id="exercise" placeholder="Exercise (0-5)" min="0" max="5">
+        <button onclick="checkHealth()">Check Health Risk</button>
+    </div>
+
+    <div class="popup" id="popup">
+        <p id="popup-text"></p>
+        <button class="close-btn" id="close-btn">Close</button>
+    </div>
+
+    <div class="loading-effect" id="loading">🤖 Analyzing your health...</div>
+
+    <script>
+        // Toggle between dark and light mode
+        const modeToggle = document.getElementById("mode-toggle");
+        modeToggle.addEventListener("change", function () {
+            if (this.checked) {
+                document.body.classList.add("dark-mode");
+                document.body.classList.remove("light-mode");
+            } else {
+                document.body.classList.add("light-mode");
+                document.body.classList.remove("dark-mode");
+            }
+        });
+
+        // Check Health function
+        function checkHealth() {
+            const age = document.getElementById('age').value;
+            const bmi = document.getElementById('bmi').value;
+            const activity_level = document.getElementById('activity_level').value;
+            const smoking = document.getElementById('smoking').value;
+            const alcohol = document.getElementById('alcohol').value;
+            const diet = document.getElementById('diet').value;
+            const exercise = document.getElementById('exercise').value;
+
+            // Validate input: If any field is empty, show an error
+            if (!age || !bmi || !activity_level || !smoking || !alcohol || !diet || !exercise) {
+                showPopup("⚠️ Please fill all fields before submitting!", "red");
+                return; // Stop execution
+            }
+
+            const data = { age, bmi, activity_level, smoking, alcohol, diet, exercise };
+
+            showPopup("🤖 Analyzing your health...", "blue");
+
+            fetch('http://localhost:5000/predict', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+                .then(response => response.json())
+                .then(result => {
+                    setTimeout(() => {
+                        showPopup(`✅ Your result: ${result.prediction}`, result.prediction === 'High Risk' ? "red" : "green");
+                    }, 2000);
+                })
+                .catch(error => {
+                    showPopup("⚠️ Error fetching results!", "orange");
+                });
+        }
+
+        // Show Popup
+        function showPopup(message, color) {
+            const popup = document.getElementById('popup');
+            const popupText = document.getElementById('popup-text');
+            popupText.textContent = message;  // Set message
+            popup.style.background = color;
+            popup.classList.add("show");
+            gsap.fromTo("#popup", { scale: 0 }, { scale: 1, duration: 0.5, ease: "elastic.out(1, 0.5)" });
+        }
+
+        // Close Popup
+        const closeBtn = document.getElementById("close-btn");
+        closeBtn.addEventListener("click", function () {
+            const popup = document.getElementById('popup');
+            gsap.to("#popup", { scale: 0, duration: 0.3, ease: "power2.inOut", onComplete: () => {
+                popup.classList.remove("show");  // Hide popup when animation is complete
+            }});
+        });
+    </script>
+
+</body> 
+</html>
