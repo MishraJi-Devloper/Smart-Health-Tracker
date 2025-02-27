@@ -103,6 +103,7 @@ We welcome contributions! To contribute to this project, please follow these ste
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
+
 ---
 
 ## Common Mistakes to Avoid
