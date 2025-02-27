@@ -1,5 +1,5 @@
+n
 # Smart Health Tracker
-
 
 A health risk prediction web application using Flask, HTML, CSS, JavaScript, GSAP animations, and Git for version control.
 
@@ -22,7 +22,15 @@ The **Smart Health Tracker** is a web-based health tracker that helps users pred
 - Interactive animations using GSAP and Three.js
 - Light/Dark mode toggle for user preferences
 - Seasonal background effects (e.g., snow in winter, sun in summer)
-  
+
+## Watch the Demo of the Smart Health Tracker
+
+You can watch a demo of the **Smart Health Tracker** below:
+
+[![Smart Health Tracker Demo](https://img.youtube.com/vi/zOjfJ_vVLk8/0.jpg)](https://www.youtube.com/watch?v=zOjfJ_vVLk8)
+
+*Click on the image above to play the demo video directly.*
+
 ## Setup Instructions
 
 ### 1. Clone the repository:
@@ -134,14 +142,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **GSAP** for creating smooth animations.
 - **Three.js** for adding 3D effects to the website.
 - **Python** for the backend logic.
-
 ```
 
-### Key Points:
-- **Cloning and Setup**: Includes instructions to clone the repo, install dependencies, and run the Flask app.
-- **File Structure**: Shows the organization of the project’s files.
-- **How to Contribute**: Provides guidelines for contributing to the project, including forking and pull requests.
-- **License Information**: Provides a placeholder for the project's license (MIT).
-- **Common Mistakes**: Outlines common issues beginners may face and how to avoid them.
+(`https://www.youtube.com/watch?v=zOjfJ_vVLk8`).
 
-This README file can help users and contributors understand how to use, set up, and contribute to your Smart Health Tracker project.
