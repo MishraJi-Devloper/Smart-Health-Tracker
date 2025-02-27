@@ -26,8 +26,7 @@ The **Smart Health Tracker** is a web-based health tracker that helps users pred
 ## Watch the Demo of the Smart Health Tracker
 
 You can watch a demo of the **Smart Health Tracker** below:
-
-[![Smart Health Tracker Demo]([https://img.youtube.com/vi/zOjfJ_vVLk8/0.jpg](https://github.com/MishraJi-Devloper/Smart-Health-Tracker/blob/main/Screenshot%202025-02-28%20020250.png))](https://www.youtube.com/watch?v=zOjfJ_vVLk8)
+[![Smart Health Tracker Demo](https://github.com/MishraJi-Devloper/Smart-Health-Tracker/blob/main/Screenshot%202025-02-28%20020250.png)](https://www.youtube.com/watch?v=zOjfJ_vVLk8)
 
 *Click on the image above to play the demo video directly.*
 
