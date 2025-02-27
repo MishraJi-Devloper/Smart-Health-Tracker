@@ -1,7 +1,5 @@
-Here’s a README.md template you can use for your GitHub repository:
-
-```markdown
 # Smart Health Tracker
+
 
 A health risk prediction web application using Flask, HTML, CSS, JavaScript, GSAP animations, and Git for version control.
 
