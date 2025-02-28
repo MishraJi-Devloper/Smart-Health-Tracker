@@ -141,7 +141,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **GSAP** for creating smooth animations.
 - **Three.js** for adding 3D effects to the website.
 - **Python** for the backend logic.
-```
+
 
 
 
