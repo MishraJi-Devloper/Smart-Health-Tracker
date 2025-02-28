@@ -1,4 +1,4 @@
-n
+
 # Smart Health Tracker
 
 A health risk prediction web application using Flask, HTML, CSS, JavaScript, GSAP animations, and Git for version control.
@@ -108,7 +108,7 @@ We welcome contributions! To contribute to this project, please follow these ste
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/MishraJi-Devloper/Smart-Health-Tracker/blob/main/MIT%20License.txt) file for details.
 
 
 ---
