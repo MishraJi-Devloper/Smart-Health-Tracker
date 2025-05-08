@@ -32,5 +32,8 @@ def predict():
         print("Error:", str(e))  # Print the error in console
         return jsonify({"error": "Invalid data format", "details": str(e)}), 400
 
+import os
+
 if __name__ == "__main__":
-    app.run(debug=True)
+    debug_mode = os.getenv("FLASK_ENV") == "development"
+    app.run(debug=debug_mode)
