@@ -29,8 +29,8 @@ def predict():
         return jsonify({"prediction": risk})
 
     except Exception as e:
-        print("Error:", str(e))  # Print the error in console
-        return jsonify({"error": "Invalid data format", "details": str(e)}), 400
+        print("Error:", str(e))  # Log the error in console
+        return jsonify({"error": "An internal error occurred"}), 400
 
 import os
 
